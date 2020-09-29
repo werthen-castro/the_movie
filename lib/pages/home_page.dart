@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie/blocs/home_bloc.dart';
 import 'package:the_movie/models/movie_model.dart';
+import 'package:the_movie/widgets/movie_card.dart';
 
 import '../keys.dart';
 
@@ -23,54 +24,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  _card(Movie movie) {
-    return GestureDetector(
-      onTap: () {},
-      child: Card(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Image.network(
-              urlBase + movie.posterPath,
-              height: 150,
-              width: 100,
-            ),
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 18, right: 18),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      movie.title,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                      ),
-                      overflow: TextOverflow.clip,
-                      textAlign: TextAlign.start,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Text(
-                        movie.overview,
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.justify,
-                        maxLines: 6,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
+
 
 
 
@@ -97,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.all(8),
                     itemCount: snapshot.data.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return _card(snapshot.data[index]);
+                      return MovieCard(snapshot.data[index]);
                     });
               }))
         );
