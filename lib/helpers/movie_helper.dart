@@ -111,8 +111,7 @@ class MovieHelper {
         return Movie.fromMap(item);
       }).toList();
     }catch (e, s){
-      print(e);
-      print(s);
+
     }
 
 

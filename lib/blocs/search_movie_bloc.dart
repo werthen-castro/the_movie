@@ -24,28 +24,15 @@ class SearchMovieBloc{
 
   Future<void> search() async {
 
-    print("to aqui");
-
-    try {
-
       Response response = await _apiConnector.apiGet(
           'https://api.themoviedb.org/3/search/movie?api_key=$apiKey&language=en-US&query=${_text.value}&page=${_offset.value}&include_adult=false');
       Map body = json.decode(response.body);
-
-      print(body);
 
       body['results'].forEach((element) {
         listMovies.add(Movie.fromMap(element) );
       });
 
-
-
       _movies.add(listMovies);
-
-    } catch (e, s) {
-      print(e);
-      print(s);
-    }
   }
 
 

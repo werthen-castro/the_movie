@@ -7,16 +7,11 @@ class ApiConnector {
   Future<http.Response> apiGet(String url, {Map<String, String> headers,}) async {
     http.Response response;
 
-    try {
-
       response = await http.get(
         url,
         headers: headers,
       ).timeout(Duration(seconds: this.secondsTimeout),
       );
-    } catch (error, stackTrace) {
-
-    }
 
     return response;
   }
