@@ -14,6 +14,7 @@ class Movie{
   int voteCount;
   bool video;
   double voteAverage;
+  bool favorite;
 
   Movie({
     this.posterPath,
@@ -29,16 +30,17 @@ class Movie{
     this.popularity,
     this.voteCount,
     this.video,
-    this.voteAverage
+    this.voteAverage,
+    this.favorite
   });
 
-  factory Movie.fromMap(Map<String, dynamic> map) {
+  factory Movie.fromMap(Map<String, dynamic> map, {bool favorite}) {
     return Movie(
+      favorite: favorite == null ? map["favorite"] == null ? false :  map["favorite"] == 1 ? true : false : favorite,
       posterPath: map["poster_path"],
-      adult: map["adult"],
+      adult: map["adult"] is bool ? map["adult"] : map["adult"] == 1 ? true : false,
       overview: map["overview"],
       releaseDate: DateTime.parse(map["release_date"]) ,
-      genreIds: map["genre_ids"],
       id: map["id"],
       originalTitle:map["original_title"],
       originalLanguage:map["original_language"],
@@ -46,7 +48,7 @@ class Movie{
       backdropPath:map["backdrop_path"],
       popularity:map["popularity"],
       voteCount:map["vote_count"],
-      video:map["video"],
+      video: map["video"] is bool ? map["video"] : map["video"] == 1 ? true : false,
       voteAverage: map["vote_average"].toDouble()
     );
   }
@@ -55,11 +57,12 @@ class Movie{
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
 
+    map["favorite"] = this.favorite ? 1 : 0;
     map["poster_path"] = this.posterPath;
-    map["adult"] = this.adult;
+    map["adult"] = this.adult ? 1 :0;
     map["overview"] = this.overview;
-    map["release_date"] = this.releaseDate;
-    map["genre_ids"] = this.genreIds;
+    map["release_date"] = this.releaseDate.toString();
+    map["genre_ids"] = this.genreIds.toString();
     map["id"] = this.id;
     map["original_title"] = this.originalTitle;
     map["original_language"] = this.originalLanguage;
@@ -67,7 +70,7 @@ class Movie{
     map["backdrop_path"] = this.backdropPath;
     map["popularity"] = this.popularity;
     map["vote_count"] = this.voteCount;
-    map["video"] = this.video;
+    map["video"] = this.video ? 1 : 0;
     map["vote_average"] = this.voteAverage;
 
     return map;
