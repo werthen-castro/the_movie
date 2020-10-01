@@ -16,7 +16,6 @@ class _PopularMoviesState extends State<PopularMovies> {
   ScrollController _scrollController = ScrollController();
   @override
   void initState() {
-    widget.homeBloc.getMoviesPopular();
     super.initState();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==

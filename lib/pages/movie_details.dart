@@ -3,7 +3,7 @@ import 'package:the_movie/helpers/movie_helper.dart';
 import 'package:the_movie/models/movie_model.dart';
 import 'package:the_movie/utils/app_colors.dart';
 
-import '../keys.dart';
+import '../config.dart';
 
 class MovieDetails extends StatefulWidget {
 
@@ -61,7 +61,7 @@ class _MovieDetailsState extends State<MovieDetails> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.network(
-              urlBase + widget.movie.backdropPath,
+              urlBaseImage + widget.movie.backdropPath,
             ),
 
             Padding(

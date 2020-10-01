@@ -5,7 +5,7 @@ import 'package:the_movie/models/movie_model.dart';
 import 'package:the_movie/pages/movie_details.dart';
 import 'package:the_movie/utils/app_colors.dart';
 
-import '../keys.dart';
+import '../config.dart';
 
 class MovieCard extends StatefulWidget {
   FavoriteMoviesBloc bloc;
@@ -34,7 +34,7 @@ class _MovieCardState extends State<MovieCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             widget.movie.posterPath != null ? Image.network(
-              urlBase + widget.movie.posterPath,
+              urlBaseImage + widget.movie.posterPath,
               height: 150,
               width: 100,
             ): Padding(

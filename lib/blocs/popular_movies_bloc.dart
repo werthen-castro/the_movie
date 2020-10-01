@@ -7,7 +7,7 @@ import 'package:the_movie/helpers/movie_helper.dart';
 import 'package:the_movie/models/movie_model.dart';
 import 'package:the_movie/utils/api_connector.dart';
 
-import '../keys.dart';
+import '../config.dart';
 
 class PopularMovieBloc {
 

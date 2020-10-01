@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie/blocs/search_movie_bloc.dart';
-import 'package:the_movie/keys.dart';
-import 'package:the_movie/models/movie_model.dart';
 import 'package:the_movie/utils/app_colors.dart';
 import 'package:the_movie/widgets/movie_card.dart';
+
 
 class SearchMovie extends StatefulWidget {
 
@@ -18,70 +17,6 @@ class SearchMovie extends StatefulWidget {
 class _SearchMovieState extends State<SearchMovie> {
   SearchMovieBloc _searchMovieBloc = SearchMovieBloc();
   final _controller = TextEditingController();
-
-  _card(Movie movie) {
-    return GestureDetector(
-      onTap: () {},
-      child: Card(
-        color: AppColors.primaryColor,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            movie.posterPath != null ? Image.network(
-              urlBase + movie.posterPath,
-              height: 110,
-              width: 100,
-            ): Padding(
-              padding: const EdgeInsets.only(left: 12, right: 12),
-              child: Container(
-                color: Colors.grey,
-                height: 110,
-                width: 75,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.info),
-                    Text('Indisponivel', style: TextStyle(fontSize: 12),)
-                  ],
-                ),
-              ),
-            ),
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 18, right: 18),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      movie.title,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                      overflow: TextOverflow.clip,
-                      textAlign: TextAlign.start,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Text(
-                        movie.overview,
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.justify,
-                        maxLines: 4,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {

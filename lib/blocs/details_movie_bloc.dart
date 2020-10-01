@@ -5,7 +5,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:the_movie/models/movie_model.dart';
 import 'package:the_movie/utils/api_connector.dart';
 
-import '../keys.dart';
+import '../config.dart';
 
 class DetailsMovieBloc{
 
@@ -19,13 +19,17 @@ class DetailsMovieBloc{
     try {
 
       Response response = await _apiConnector.apiGet(
-          'https://api.themoviedb.org/3/movie/${movieId}?api_key=$apiKey&language=pt-BR');
+          urlBaseRequest +'/movie/${movieId}?api_key=$apiKey&language=pt-BR');
       Map body = json.decode(response.body);
 
       _movie.add(Movie.fromMap(body['results']));
     } catch (e, s) {
 
     }
+  }
+
+  dispose(){
+    _movie.close();
   }
 
 

@@ -5,7 +5,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:the_movie/models/movie_model.dart';
 import 'package:the_movie/utils/api_connector.dart';
 
-import '../keys.dart';
+import '../config.dart';
 
 class SearchMovieBloc{
 
@@ -35,5 +35,10 @@ class SearchMovieBloc{
       _movies.add(listMovies);
   }
 
+  dispose(){
+    _text.close();
+    _offset.close();
+    _movies.close();
+  }
 
 }
