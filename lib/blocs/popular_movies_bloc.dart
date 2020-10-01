@@ -20,11 +20,10 @@ class PopularMovieBloc {
   final _movies = BehaviorSubject<List<Movie>>();
   get movies => _movies.stream;
 
-
   final _offset = BehaviorSubject<int>.seeded(1);
   get offset => _offset.stream;
 
-  List<Movie> temp = [];
+  List<Movie> listMovies = [];
   MovieHelper _movieHelper = MovieHelper();
 
 
@@ -32,8 +31,6 @@ class PopularMovieBloc {
 
     try {
       var array = await _movieHelper.getIds();
-      print(array);
-
 
       Response response = await _apiConnector.apiGet(
           'https://api.themoviedb.org/3/movie/popular?api_key=$apiKey&language=pt-BR&page=${_offset
@@ -42,17 +39,16 @@ class PopularMovieBloc {
       for(int i = 0, j = 0; i < body['results'].length;i ++, j++){
 
         if(array.contains(body['results'][i]['id'] )){
-          temp.add(Movie.fromMap(body['results'][i], favorite: true));
+          listMovies.add(Movie.fromMap(body['results'][i], favorite: true));
         }else{
-          temp.add(Movie.fromMap(body['results'][i]));
+          listMovies.add(Movie.fromMap(body['results'][i]));
         }
       }
 
-      _movies.add(temp);
+      _movies.add(listMovies);
       _offset.add(_offset.value + 1);
     } catch (e, s) {
-      print(e);
-      print(s);
+
     }
   }
 

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:the_movie/blocs/favorite_movies_bloc.dart';
-import 'package:the_movie/blocs/popular_movies_bloc.dart';
+
 import 'package:the_movie/widgets/movie_card.dart';
 
 class PopularMovies extends StatefulWidget {
+
+  var homeBloc;
+  var favoriteMoviesBloc;
+  PopularMovies(this.homeBloc, this.favoriteMoviesBloc);
   @override
   _PopularMoviesState createState() => _PopularMoviesState();
 }
@@ -11,16 +14,14 @@ class PopularMovies extends StatefulWidget {
 class _PopularMoviesState extends State<PopularMovies> {
 
   ScrollController _scrollController = ScrollController();
-  PopularMovieBloc _homeBloc = PopularMovieBloc();
-  FavoriteMoviesBloc _favoriteMoviesBloc = FavoriteMoviesBloc();
   @override
   void initState() {
-    _homeBloc.getMoviesPopular();
+    widget.homeBloc.getMoviesPopular();
     super.initState();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        _homeBloc.getMoviesPopular();
+        widget.homeBloc.getMoviesPopular();
       }
     });
   }
@@ -28,9 +29,9 @@ class _PopularMoviesState extends State<PopularMovies> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-        onRefresh: _homeBloc.getMoviesPopular,
+        onRefresh: widget.homeBloc.getMoviesPopular,
         child: StreamBuilder(
-            stream: _homeBloc.movies,
+            stream: widget.homeBloc.movies,
             builder:
                 (BuildContext context, snapshot) {
               if (snapshot.hasError) {}
@@ -42,7 +43,7 @@ class _PopularMoviesState extends State<PopularMovies> {
                   padding: const EdgeInsets.all(8),
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return MovieCard(snapshot.data[index],_favoriteMoviesBloc);
+                    return MovieCard(snapshot.data[index], widget.favoriteMoviesBloc);
                   });
             }));
   }

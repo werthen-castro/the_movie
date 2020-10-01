@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:the_movie/blocs/favorite_movies_bloc.dart';
 import 'package:the_movie/helpers/movie_helper.dart';
 import 'package:the_movie/models/movie_model.dart';
+import 'package:the_movie/utils/app_colors.dart';
 
 import '../keys.dart';
 
@@ -23,13 +24,28 @@ class _MovieCardState extends State<MovieCard> {
     return GestureDetector(
       onTap: () {},
       child: Card(
+        color: AppColors.primaryColor,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Image.network(
+            widget.movie.posterPath != null ? Image.network(
               urlBase + widget.movie.posterPath,
               height: 150,
               width: 100,
+            ): Padding(
+              padding: const EdgeInsets.only(left: 12, right: 12),
+              child: Container(
+                color: Colors.grey,
+                height: 110,
+                width: 75,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.info),
+                    Text('Indisponivel', style: TextStyle(fontSize: 12),)
+                  ],
+                ),
+              ),
             ),
             Flexible(
               child: Padding(
@@ -42,7 +58,7 @@ class _MovieCardState extends State<MovieCard> {
                       child: Text(
                         widget.movie.title,
                         style: TextStyle(
-                          color: Colors.black,
+                          color: Colors.white,
                           fontSize: 16,
                         ),
                         overflow: TextOverflow.clip,
@@ -55,7 +71,7 @@ class _MovieCardState extends State<MovieCard> {
                       child: Text(
                         widget.movie.overview,
                         style: TextStyle(
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.justify,

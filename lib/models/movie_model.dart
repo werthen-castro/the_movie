@@ -40,7 +40,6 @@ class Movie{
       posterPath: map["poster_path"],
       adult: map["adult"] is bool ? map["adult"] : map["adult"] == 1 ? true : false,
       overview: map["overview"],
-      releaseDate: DateTime.parse(map["release_date"]) ,
       id: map["id"],
       originalTitle:map["original_title"],
       originalLanguage:map["original_language"],
@@ -61,7 +60,6 @@ class Movie{
     map["poster_path"] = this.posterPath;
     map["adult"] = this.adult ? 1 :0;
     map["overview"] = this.overview;
-    map["release_date"] = this.releaseDate.toString();
     map["genre_ids"] = this.genreIds.toString();
     map["id"] = this.id;
     map["original_title"] = this.originalTitle;
