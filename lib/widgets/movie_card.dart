@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:the_movie/blocs/favorite_movies_bloc.dart';
 import 'package:the_movie/helpers/movie_helper.dart';
 import 'package:the_movie/models/movie_model.dart';
+import 'package:the_movie/pages/movie_details.dart';
 import 'package:the_movie/utils/app_colors.dart';
 
 import '../keys.dart';
@@ -22,7 +23,11 @@ class _MovieCardState extends State<MovieCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (_) => MovieDetails( widget.movie, widget.bloc)),
+        );
+      },
       child: Card(
         color: AppColors.primaryColor,
         child: Row(
@@ -86,20 +91,14 @@ class _MovieCardState extends State<MovieCard> {
               onTap: () async {
                 if (!widget.movie.favorite) {
                   await widget.bloc.addMoviesFavorites(widget.movie);
-                  //await db.insertMovie(widget.movie);
                 } else {
                   await widget.bloc.deleteMoviesFavorites(widget.movie);
-                  // await db.delete(widget.movie.id);
                 }
-
                 setState(() {
                   widget.movie.favorite = !widget.movie.favorite;
                 });
 
                 await db.update(widget.movie);
-
-
-
               },
               child: Padding(
                   padding: const EdgeInsets.only(top: 8, right: 8),
